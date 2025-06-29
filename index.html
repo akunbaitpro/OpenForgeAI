@@ -1,24 +1,185 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gloria AI - AI-Powered News for AI Agents</title>
-    <meta name="description" content="Gloria AI delivers curated, real-time data so your AI agents can thrive in a world of information overload." />
-    <meta name="author" content="Gloria AI" />
-    <meta property="og:image" content="/og-image.png" />
-    
-    <link rel="icon" type="image/png" href="/lovable-uploads/6f566442-0a8a-4d60-837e-f03604c27437.png">
-    
-    <!-- Updated to only include Manrope font weights -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenForgeAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <body>
-    <div id="root"></div>
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0d0d0d;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    header {
+      width: 100%;
+      padding: 1.5rem 2rem;
+            z-index: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    header img {
+      width: 48px;
+      height: 48px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+    }
+
+    .hero {
+      margin-top: 4rem;
+      max-width: 800px;
+      text-align: center;
+      animation: fadeIn 2s ease;
+      z-index: 1;
+      position: relative;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #b478ff;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #cccccc;
+    }
+
+    .cta {
+      margin-top: 2rem;
+    }
+
+    .cta a {
+      text-decoration: none;
+      background: #6c00ff;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .cta a:hover {
+      background: #5200cc;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777777;
+      z-index: 1;
+      position: relative;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <script type="module">
+    import { AuroraBackground } from "https://esm.sh/@reactbits/backgrounds@latest";
+    const canvas = AuroraBackground({ variant: 'aurora' });
+    document.body.appendChild(canvas);
+  </script>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="OpenForgeAI Logo">
+    <h1>OpenForgeAI</h1>
+  </header>
+
+  <section class="hero">
+    <h2>Upload. Train AI. Earn Crypto.</h2>
+    <p>
+      Contribute your images and videos to help train the next generation of AI.
+      OpenForgeAI rewards you with tokens for every dataset you provide.
+      Decentralized. Transparent. Empowering creators worldwide.
+    </p>
+    <div class="cta">
+      <a href="#" style="display: inline-block; font-size: 1rem; letter-spacing: 0.5px; padding: 0.85rem 2rem; background: linear-gradient(135deg, #6c00ff, #b478ff); color: #fff; border-radius: 10px; font-weight: 600; box-shadow: 0 4px 12px rgba(108, 0, 255, 0.4); transition: all 0.3s ease;">
+        Join the Beta
+      </a>
+    </div>
+    <div style="margin-top: 3.5rem; padding: 1.5rem; border: 1px solid #6c00ff; border-radius: 12px; background-color: #101320; color: #cccccc; max-width: 600px; margin-left: auto; margin-right: auto;">
+  <p style="font-weight: bold; color: #ffffff; margin-bottom: 0.5rem;">Token Contract</p>
+  <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem;">
+  <code id="token-address" style="word-break: break-all; font-size: 0.9rem; color: #b478ff;">0x1234567890abcdef1234567890abcdef12345678</code>
+  <button onclick="copyAddress()" style="background: #6c00ff; color: white; border: none; padding: 0.4rem 0.75rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; position: relative; transition: background 0.3s ease;">
+    Copy
+    <span id="tooltip" style="visibility: hidden; opacity: 0; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #222; color: #fff; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; transition: opacity 0.3s ease;">Copied!</span>
+  </button>
+</div>
+</div>
+
+
+  </section>
+
+  <footer>
+    &copy; 2025 OpenForgeAI. Built for the future.
+  </footer>
+<script>
+  function copyAddress() {
+    const address = document.getElementById("token-address").innerText;
+    const tooltip = document.getElementById("tooltip");
+    const button = tooltip.parentElement;
+
+    navigator.clipboard.writeText(address).then(() => {
+      tooltip.style.visibility = 'visible';
+      tooltip.style.opacity = '1';
+      tooltip.innerText = 'Copied!';
+      button.classList.add('clicked');
+      setTimeout(() => {
+        tooltip.style.opacity = '0';
+        tooltip.style.visibility = 'hidden';
+        button.classList.remove('clicked');
+      }, 2000);
+    });
+  }
+</script>
+<style>
+  button.clicked {
+    transform: scale(0.95);
+    background: #5800cc;
+  }
+</style>
+</body>
 </html>
-
