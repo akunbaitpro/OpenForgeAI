@@ -25,6 +25,7 @@ header {
   justify-content: space-between;
   align-items: center;
   z-index: 1;
+  background: transparent;
 }
 
 .left-header {
@@ -349,6 +350,141 @@ footer {
 .solscan-btn i {
   margin-right: 0.4rem;
   font-size: 0.8rem;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1.8rem;
+}
+
+.cta-btn i {
+  font-size: 1rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+}
+
+.cta-btn:hover i {
+  transform: rotate(-10deg) scale(1.1);
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
+.cta a, .cta-btn {
+  padding: 0.9rem 1.8rem;
+  text-decoration: none;
+  background: linear-gradient(to right, #7b2ff7, #f107a3);
+  color: white;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 0 20px rgba(123, 47, 247, 0.6);
+  transition: background 0.3s;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.x-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  color: #fff;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+}
+
+.x-btn:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.x-btn i {
+  margin-top: 2px;
+}
+
+.aurora-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.aurora-background::before,
+.aurora-background::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.8;
+}
+
+.aurora-background::before {
+  background: radial-gradient(circle at center, #7b2ff7 0%, transparent 70%);
+  width: 600px;
+  height: 600px;
+  top: -300px;
+  left: -300px;
+  animation: aurora-move 20s linear infinite;
+}
+
+.aurora-background::after {
+  background: radial-gradient(circle at center, #00ccff 0%, transparent 70%);
+  width: 800px;
+  height: 800px;
+  bottom: -400px;
+  right: -400px;
+  animation: aurora-move 25s linear infinite reverse;
+}
+
+@keyframes aurora-move {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Penyesuaian Hero Section */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  z-index: 1;
+}
+
+.hero h2, 
+.hero p, 
+.hero .cta {
+  position: relative;
+  z-index: 2;
+}
+
+.orb-effect {
+  position: absolute;
+  top: 50%;
+  right: -200px;
+  transform: translateY(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 204, 255, 0.2) 0%,
+    rgba(123, 47, 247, 0.1) 50%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  z-index: 0;
+  animation: 
+    orb-move 15s infinite alternate ease-in-out,
+    orb-pulse 8s infinite alternate;
 }
 
 #phase1 h2 { color: #15963b; }
