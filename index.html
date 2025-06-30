@@ -1,377 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OpenForge AI</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #0d0d0d;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    header {
-      width: 100%;
-      padding: 1.5rem 2rem;
-      z-index: 1;
-      position: sticky;
-      top: 0;
-      background: #0d0d0d;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .left-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    header img {
-      width: 40px;
-      height: 40px;
-    }
-
-    header h1 {
-      font-size: 1.5rem;
-    }
-
-    .github-btn {
-      text-decoration: none;
-      background: linear-gradient(to right, #7b2ff7, #f107a3);
-      color: white;
-      padding: 0.6rem 1.5rem;
-      border-radius: 999px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      font-size: 0.9rem;
-      box-shadow: 0 0 10px rgba(123, 47, 247, 0.6);
-    }
-
-    .hero {
-      margin-top: 4rem;
-      max-width: 720px;
-      padding: 0 2rem;
-      animation: fadeIn 2s ease;
-      z-index: 1;
-      position: relative;
-      align-self: center;
-      text-align: left;
-    }
-
-    .hero h2 {
-      font-size: 3.2rem;
-      background: linear-gradient(to right, #00ffff, #00ccff, #66ffff, #ccffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px rgba(0, 255, 255, 0.25);
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #cccccc;
-      margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
-    }
-
-      .cta {
-      margin-top: 0;
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    .cta a {
-      text-decoration: none;
-      background: linear-gradient(to right, #7b2ff7, #f107a3);
-      color: white;
-      padding: 0.9rem 1.8rem;
-      border-radius: 999px;
-      font-weight: bold;
-      transition: background 0.3s;
-      display: flex;
-      align-items: center;
-      font-size: 1rem;
-      box-shadow: 0 0 20px rgba(123, 47, 247, 0.6);
-    }
-
-    .cta a:hover {
-      background: linear-gradient(to right, #6b1ee7, #d00693);
-    }
-
-    .cta2 {
-      margin-top: 0;
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    .cta2 a {
-      background: transparent;
-      color: #fff;
-      border: 2px solid white;
-      padding: .6rem 1.6rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all .2s ease;
-      text-decoration: none;
-    }
-
-    .cta2 a:hover {
-      background-color: #504de7;
-      color: #ffffff;
-    }
-
-    .feature-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      width: 100%;
-      max-width: 720px;
-      padding: 4rem 2rem;
-      justify-content: center;
-    }
-
-    .feature-box {
-      background: #15121c;
-      border: 1px solid #2e2a3f;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100%;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .feature-box.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .feature-box.large {
-      flex: 1 1 98%;
-      max-width: 98%;
-    }
-
-    .feature-box.half {
-      flex: 1 1 48%;
-      max-width: 48%;
-      justify-content: center;
-      align-items: center;
-      text-align: left;
-    }
-
-    .feature-box.half h4 {
-      font-size: 1.5rem;
-      background: linear-gradient(to right, #7b2ff7, #00ffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .feature-box.half p {
-      margin-top: 0.5rem;
-      align-self: flex-start;
-    }
-
-    .copy-btn {
-      background: #2d2b3f;
-      color: white;
-      border: none;
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-left: 0.75rem;
-    }
-  </style>
-  <script>
-    function copyToken() {
-      const copyText = document.getElementById("tokenAddress").innerText;
-      navigator.clipboard.writeText(copyText).then(() => {
-        alert("Copied!");
-      });
-    }
-
-    function animateCount(el, target, duration) {
-      let start = 0;
-      let range = target - start;
-      let startTime = null;
-
-      function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const progress = timestamp - startTime;
-        const val = Math.floor((progress / duration) * range);
-        el.innerText = val.toLocaleString('en-US');
-        if (progress < duration) {
-          requestAnimationFrame(step);
-        } else {
-          el.innerText = target.toLocaleString('en-US');
-        }
-      }
-      requestAnimationFrame(step);
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-            if (entry.target.id === "counterBox" && !entry.target.dataset.counted) {
-              const el = document.getElementById("counterValue");
-              animateCount(el, 1000000000, 2000);
-              entry.target.dataset.counted = "true";
-            }
-          }
-        });
-      }, { threshold: 0.5 });
-
-      document.querySelectorAll('.feature-box').forEach(box => {
-        observer.observe(box);
-      });
-    });
-  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-
-  <!-- Header Section -->
   <header>
     <div class="left-header">
       <img src="images/Logo.png" alt="Logo">
-      <h1>OpenForge AI</h1>
+      <h1 style="font-size: 1.2rem;">OpenForge AI</h1>
     </div>
-    <a href="#" class="github-btn">Star On GitHub</a>
+    <a href="https://github.com/your-repo" class="cta-btn" target="_blank" rel="noopener noreferrer">Get Token Now</a>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero">
-    <h2>Upload. Train AI.<br>Earn Crypto.</h2>
-    <p>Contribute your images and videos to help train the next generation of AI. OpenForge AI rewards you with tokens for every dataset you provide. Decentralized. Transparent. Empowering creators worldwide.</p>
-    <div class="cta" style="margin-bottom: 10rem;">
-      <a href="#">See Our Roadmap</a>
+    <h2 id="heroTitle">Upload &<br>Earn Crypto.</h2>
+    <p id="heroDescription">Contribute your images and videos for AI generation training.<br>OpenForge AI rewards you with tokens for every dataset you provide. Decentralized. Transparent. Empowering creators worldwide.</p>
+    <div class="cta" style="margin-bottom:10rem">
+      <a href="#roadmap" id="roadmapButton">See Our Roadmap</a>
     </div>
   </section>
 
-  <!-- Features Section -->
   <section class="feature-section">
-    <div style="text-align: center; margin-top: 4rem;">
-    <h2 style="
-      font-size: 2.5rem;
-      background: linear-gradient(to right, #7b2ff7, #00ffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-      margin-bottom: 1rem;
-    ">Token For AI Training</h2>
-    <p style="
-      font-size: 1.1rem;
-      color: #cccccc;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
-      margin-bottom: 1rem;
-    ">Shape the future of AI generation</p>
-    <style>.feature-section { margin-top: -3rem; }</style>
+    <div style="text-align:center;margin-top:4rem">
+      <h2 id="tokenHeading">Token For AI Training</h2>
+      <p id="tokenSubtext">In the future, our token will be used as a currency for trading AI datasets — empowering developers, researchers, and creators globally.</p>
     </div>
     <div class="feature-box half" id="counterBox">
-      <div style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;">
-        <h4 id="counterValue" style="color: #a855f7;">0</h4>
+      <div style="width:100%;display:flex;flex-direction:column;align-items:flex-start">
+        <h4 id="counterValue">0</h4>
         <p>Total Supply</p>
       </div>
     </div>
     <div class="feature-box half">
       <div>
-        <h4 style="color: #a855f7;">Powered by Solana</h4>
+        <h4>Powered by Solana</h4>
         <p>High speed, low fee blockchain</p>
       </div>
     </div>
     <div class="feature-box large">
-      <h4>Token Contract</h4>
-      <p><span id="tokenAddress">0x1234567890abcdef1234567890abcdef12345678</span><button class="copy-btn" onclick="copyToken()">Copy</button></p>
+      <h4>Token Contract:</h4>
+      <p>
+        <span class="token-address" id="tokenAddress">0x1234567890abcdef1234567890abcdef12345678</span>
+        <button class="copy-btn" id="copyTokenBtn" aria-label="Copy token address">
+          <i class="far fa-copy"></i>
+          <span class="tooltip">Address copied!</span>
+        </button>
+        <a href="https://solscan.io/token/0x1234567890abcdef1234567890abcdef12345678" 
+          class="solscan-btn" 
+          target="_blank" 
+          rel="noopener noreferrer">
+          <i class="fas fa-link"></i> View on Solscan
+        </a>
+      </p>
     </div>
   </section>
 
-  <!-- Roadmap Section -->
-  <section style="padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; text-align: center;">
-    <h2 style="
-      font-size: 2.5rem;
-      background: linear-gradient(to right, #7b2ff7, #00ffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-      margin-bottom: 1rem;
-    ">Our Roadmap</h2>
-    <p style="
-      font-size: 1.1rem;
-      color: #cccccc;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
-      margin-bottom: 1.5rem;
-    ">Here's what we've accomplished and where we're headed on our project:</p>
-    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-      <div style="width: 150px; height: 150px; background: transparent; border: 1px solid #999; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <h4 style="color: #00ffff; font-size: 1.3rem; margin-bottom: 0.5rem;">Phase 1</h4>
-        <h2 style="color: #15963b; font-size: 0.7rem; margin-bottom: 0.5rem">Completed</h2>
-        <p style="color: #cccccc; font-size: 0.7rem;">Initial token launch.</p>
+  <section class="roadmap-container" id="roadmap">
+    <h2 id="roadmapHeading">Our Roadmap</h2>
+    <p id="roadmapSubtext">Here's what we've accomplished and where we're headed:</p>
+    <div class="roadmap-boxes">
+      <div class="roadmap-box" id="phase1">
+        <h4>Phase 1</h4>
+        <h2>Completed</h2>
+        <p>Initial token launch</p>
       </div>
-      <div style="width: 150px; height: 150px; background: transparent; border: 1px solid #999; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <h4 style="color: #00ffff; font-size: 1.3rem; margin-bottom: 0.5rem;">Phase 2</h4>
-        <h2 style="color: #3c58f1; font-size: 0.7rem; margin-bottom: 0.5rem">Q4 2025</h2>
-        <p style="color: #cccccc; font-size: 0.7rem;">Tool launch and beta test.</p>
+      <div class="roadmap-box" id="phase2">
+        <h4>Phase 2</h4>
+        <h2>Q4 2025</h2>
+        <p>Tool launch and beta test</p>
       </div>
-      <div style="width: 150px; height: 150px; background: transparent; border: 1px solid #999; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <h4 style="color: #00ffff; font-size: 1.3rem; margin-bottom: 0.5rem;">Phase 3</h4>
-        <h2 style="color: #3c58f1; font-size: 0.7rem; margin-bottom: 0.5rem">Q1 2026</h2>
-        <p style="color: #cccccc; font-size: 0.7rem;">Token earnings for dataset providers.</p>
+      <div class="roadmap-box" id="phase3">
+        <h4>Phase 3</h4>
+        <h2>Q1 2026</h2>
+        <p>Token earnings for dataset providers</p>
       </div>
-      <div style="width: 150px; height: 150px; background: transparent; border: 1px solid #999; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <h4 style="color: #00ffff; font-size: 1.3rem; margin-bottom: 0.5rem;">Phase 4</h4>
-        <h2 style="color: #3c58f1; font-size: 0.7rem; margin-bottom: 0.5rem">Q3 2026</h2>
-        <p style="color: #cccccc; font-size: 0.7rem;">Open market for AI companies.</p>
+      <div class="roadmap-box" id="phase4">
+        <h4>Phase 4</h4>
+        <h2>Q3 2026</h2>
+        <p>Open market for AI companies</p>
       </div>
     </div>
-  <div style="text-align: center; margin-top: 2rem; margin-bottom: 4rem; padding: 0 1rem; max-width: 640px; margin-left: auto; margin-right: auto;">
-    <p style="font-size: 1.05rem; color: #ccc; text-shadow: 0 0 10px rgba(255,255,255,0.25); max-width: 640px; margin: 0 auto 1rem auto;">
-      In the future, our token will be used as a currency for trading AI datasets — empowering developers, researchers, and creators globally.
-    </p>
-  </div>
+    <p id="roadmapFutureText" class="future-text">Current campaign: We are raising token holders for early access to our tools.</p>
   </section>
 
-  <!-- Explore Section -->
   <section class="feature-section">
-    <div class="feature-box large" style="background: linear-gradient(to right, #37a8dd, #45188d); justify-content: center; align-items: center;">
-      <h4 style="color: #ffffff; font-size: 2rem;">Join The Project Now</h4>
-      <p style="color: #ffffff; font-size: 1rem;">Brace for the future of AI generation.</p>
-      <div class="cta2" style="margin: 1rem;">
-      <a href="https://x.com/OpenForgeAI">Follow on X</a>
-    </div>
+    <div class="feature-box large no-animation" style="background:linear-gradient(to right,#37a8dd,#45188d); justify-content:center; align-items:center">
+      <h4 style="color:#fff;font-size:2rem">Join The Project Now</h4>
+      <p style="color:#fff;font-size:1rem">Brace for the future of AI generation with OpenForge AI.</p>
+      <div class="fl-btn" style="margin:2rem">
+        <a href="https://x.com/OpenForgeAI" target="_blank" rel="noopener noreferrer">Follow on X</a>
+      </div>
     </div>
   </section>
 
-  <!-- Footer Section -->
-  <footer style="width: 100%; text-align: center; padding: 2rem 1rem; color: #aaa; font-size: 0.9rem; border-top: 1px solid #333; margin-top: 4rem; background: #0d0d0d;">
+  <footer>
     <p>&copy; 2025 OpenForge AI. Powered by Cloudflare.</p>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
